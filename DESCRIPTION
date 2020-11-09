@@ -1,0 +1,15 @@
+Package: fivethemes
+Title: Minimal ggplot themes
+Version: 0.0.0.9
+Authors@R: 
+    person(given = "Ernest", 
+           family = "Omane-Kodie", 
+           email = "eokodie@gmail.com", 
+           role = c("aut", "cre"))
+Description: Minimal ggplot themes.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    ggplot2
+RoxygenNote: 6.1.1
