@@ -153,6 +153,60 @@ theme_5dark <- function(grid = TRUE) {
 
 
 
+#' plot_candlesticks
+#'
+#' @param quotes_tbl A dataframe containing OHCL data.
+#' @param title (string) Plot title.
+#'
+#' @keywords internal
+plot_candlestick <- function(quotes_tbl, title) {
+  # checks
+  if(nrow(quotes_tbl) == 0) stop("quotes_tbl is empty")
+  missing_cols <- dplyr::setdiff(
+    c("volume", "open", "close", "high", "low"),
+    names(quotes_tbl)
+  )
+  if(!rlang::is_empty(missing_cols)){
+    stop('quotes_tbl should contain: "volume", "open", "close", "high" and "low"')
+  }
+  # Prepare data
+  red <- "#E7625F"
+  green <- "#18A558"
+  .palette = c(green, red)
 
+  candlestick_tbl <- quotes_tbl %>%
+    dplyr::mutate(
+      color = dplyr::case_when(open >= close ~ red,TRUE ~ green),
+      mid = (open + close)/2
+    )
+  # Plot Candlesticks
+  out <- ggplot2::ggplot(
+    data = candlestick_tbl,
+    ggplot2::aes(
+      x      = time,
+      ymin   = low,
+      lower  = open,
+      middle = mid,
+      upper  = close,
+      ymax   = high,
+      color  = color,
+      fill   = color
+    )
+  ) +
+    ggplot2::geom_boxplot(
+      ggplot2::aes(group = interaction(time, color)),
+      position = ggplot2::position_dodge(width = 2),
+      alpha    = 1,
+      width    = 200,
+      stat     ="identity"
+    ) +
+    ggplot2::scale_fill_manual(values =  .palette) +
+    ggplot2::scale_color_identity() +
+    ggplot2::labs(title = title, x = "Time", y = "Sare Price") +
+    theme_5classic(grid = "Xx") +
+    ggplot2::theme(legend.position = "none") +
+    ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
+  out
+}
 
 
