@@ -129,7 +129,7 @@ theme_5dark <- function(grid = TRUE) {
   axes_colour <- "#8F9394"
   grid_colour <- "#606060"
   text_colour <- "#5D5E62"
-  axes_label_colour <- "#888888"
+  axes_label_colour <- "#b1b1b1"
   background_colour <- "#36373B"
 
   bg_rect <- ggplot2::element_rect(fill = background_colour, color = background_colour)
@@ -143,8 +143,8 @@ theme_5dark <- function(grid = TRUE) {
       plot.title = ggplot2::element_text(color = title_colour, size = 16, family = title_family, face = "bold"),
       plot.subtitle = ggplot2::element_text(color = subtitle_colour, size = 12, family = font_family, face = "bold"),
       plot.caption = ggplot2::element_text(color = caption_colour, size = 11, family = font_family),
-      axis.title.x = ggplot2::element_text(color = axes_label_colour, family = font_family, margin = ggplot2::margin(t = 10, r = 0, b = 0, l = 0)),
-      axis.title.y = ggplot2::element_text(color = axes_label_colour, family = font_family, margin = ggplot2::margin(t = 0, r = 10, b = 0, l = 0)),
+      axis.title.x = ggplot2::element_text(color = axes_label_colour, face = "bold", family = font_family, margin = ggplot2::margin(t = 10, r = 0, b = 0, l = 0)),
+      axis.title.y = ggplot2::element_text(color = axes_label_colour, face = "bold", family = font_family, margin = ggplot2::margin(t = 0, r = 10, b = 0, l = 0)),
       axis.text = ggplot2::element_text(color = caption_colour, size = 9, family = font_family),
       panel.grid.major = ggplot2::element_line(color = grid_colour, size = 0.25),
       panel.grid.minor = ggplot2::element_line(color = grid_colour, size = 0.25)
@@ -202,8 +202,8 @@ plot_candlestick <- function(quotes_tbl, title) {
     ) +
     ggplot2::scale_fill_manual(values =  .palette) +
     ggplot2::scale_color_identity() +
-    ggplot2::labs(title = title, x = "Time", y = "Sare Price") +
-    theme_5classic(grid = "Xx") +
+    ggplot2::labs(title = title, x = "Time", y = "Share Price") +
+    theme_5dark(grid = "Xx") +
     ggplot2::theme(legend.position = "none") +
     ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
   out
