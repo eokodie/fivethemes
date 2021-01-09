@@ -7,7 +7,7 @@
 plot_candlestick(quotes_tbl, title)
 }
 \arguments{
-\item{quotes_tbl}{A dataframe with OHCL data.}
+\item{quotes_tbl}{A dataframe containing OHCL data.}
 
 \item{title}{(string) Plot title.}
 }

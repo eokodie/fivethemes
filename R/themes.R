@@ -5,30 +5,22 @@
 #' combination of "X", "Y", "x" and "y"
 #' @param ... Other arguments passed to ggplot methods.
 theme_five <- function(grid = "none", ...) {
-  if(!is.character(grid)) stop("grid must be a character.")
-  if(.Platform$OS.type == "unix") {
-    title_family <- "Lora"
-    font_family <- "Lato Semibold"
-  } else{
-    title_family <- "Segoe UI"
-    font_family <- "Segoe UI Semibold"
-  }
+  stopifnot(is.character(grid))
   out <- ggplot2::theme(
-    plot.title = ggplot2::element_text(color = "gray10", size = 16, family = title_family, face = "bold"),
-    plot.subtitle = ggplot2::element_text(color = "gray40", size = 12, family = font_family),
-    plot.caption = ggplot2::element_text(color = "gray40", size = 11, family = font_family),
-    axis.title.x = ggplot2::element_text(color = "grey20", family = font_family, margin = ggplot2::margin(t = 10, r = 0, b = 0, l = 0)),
-    axis.title.y = ggplot2::element_text(color = "grey20", family = font_family, margin = ggplot2::margin(t = 0, r = 10, b = 0, l = 0)),
+    plot.title = ggplot2::element_text(color = "gray10", size = 16, face = "bold"),
+    plot.subtitle = ggplot2::element_text(color = "gray40", size = 12),
+    axis.title.x = ggplot2::element_text(color = "grey20", margin = ggplot2::margin(t = 10, r = 0, b = 0, l = 0)),
+    axis.title.y = ggplot2::element_text(color = "grey20", margin = ggplot2::margin(t = 0, r = 10, b = 0, l = 0)),
     axis.ticks = ggplot2::element_blank(), legend.position = "none",
     axis.line = ggplot2::element_blank(),
     panel.grid.major = ggplot2::element_line(color = "grey80", size = 0.25),
     panel.grid.minor = ggplot2::element_line(color = "grey80", size = 0.25)
   )
   if (grid != "none") {
-      if (!stringr::str_detect(grid, "Y")) out <- out + ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())
-      if (!stringr::str_detect(grid, "X")) out <- out + ggplot2::theme(panel.grid.major.y = ggplot2::element_blank())
-      if (!stringr::str_detect(grid, "y")) out <- out + ggplot2::theme(panel.grid.minor.x = ggplot2::element_blank())
-      if (!stringr::str_detect(grid, "x")) out <- out + ggplot2::theme(panel.grid.minor.y = ggplot2::element_blank())
+    if (!stringr::str_detect(grid, "Y")) out <- out + ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())
+    if (!stringr::str_detect(grid, "X")) out <- out + ggplot2::theme(panel.grid.major.y = ggplot2::element_blank())
+    if (!stringr::str_detect(grid, "y")) out <- out + ggplot2::theme(panel.grid.minor.x = ggplot2::element_blank())
+    if (!stringr::str_detect(grid, "x")) out <- out + ggplot2::theme(panel.grid.minor.y = ggplot2::element_blank())
   } else {
     out <- out + ggplot2::theme(panel.grid = ggplot2::element_blank())
   }
@@ -120,9 +112,6 @@ theme_5minimal <- function(grid = "none", bg_fill = "#F3F3F3") {
 #' p + theme_5dark(grid = "Xx")
 #' }
 theme_5dark <- function(grid = TRUE) {
-  font_family <- "Quattrocento Sans"
-  title_family <- "Lora"
-
   title_colour <- "#F5F5F5"
   subtitle_colour <- "#A0A0A0"
   caption_colour <- "#888888"
@@ -136,22 +125,20 @@ theme_5dark <- function(grid = TRUE) {
 
   theme_five(grid) +
     ggplot2::theme(
-      text = ggplot2::element_text(family = font_family),
+      text = ggplot2::element_text(),
       plot.background = bg_rect,
       panel.background = bg_rect,
       legend.background = bg_rect,
-      plot.title = ggplot2::element_text(color = title_colour, size = 16, family = title_family, face = "bold"),
-      plot.subtitle = ggplot2::element_text(color = subtitle_colour, size = 12, family = font_family, face = "bold"),
-      plot.caption = ggplot2::element_text(color = caption_colour, size = 11, family = font_family),
-      axis.title.x = ggplot2::element_text(color = axes_label_colour, face = "bold", family = font_family, margin = ggplot2::margin(t = 10, r = 0, b = 0, l = 0)),
-      axis.title.y = ggplot2::element_text(color = axes_label_colour, face = "bold", family = font_family, margin = ggplot2::margin(t = 0, r = 10, b = 0, l = 0)),
-      axis.text = ggplot2::element_text(color = caption_colour, size = 9, family = font_family),
+      plot.title = ggplot2::element_text(color = title_colour, size = 16, face = "bold"),
+      plot.subtitle = ggplot2::element_text(color = subtitle_colour, size = 12, face = "bold"),
+      plot.caption = ggplot2::element_text(color = caption_colour, size = 11),
+      axis.title.x = ggplot2::element_text(color = axes_label_colour, face = "bold", margin = ggplot2::margin(t = 10, r = 0, b = 0, l = 0)),
+      axis.title.y = ggplot2::element_text(color = axes_label_colour, face = "bold", margin = ggplot2::margin(t = 0, r = 10, b = 0, l = 0)),
+      axis.text = ggplot2::element_text(color = caption_colour, size = 9),
       panel.grid.major = ggplot2::element_line(color = grid_colour, size = 0.25),
       panel.grid.minor = ggplot2::element_line(color = grid_colour, size = 0.25)
     )
 }
-
-
 
 #' plot_candlesticks
 #'
